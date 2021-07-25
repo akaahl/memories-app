@@ -8,12 +8,12 @@ dotenv.config();
 
 const app = express();
 
-// middleware routes
-app.use("/posts", postRoutes);
-
 app.use(express.json({ limit: "30mb", extended: true }));
 app.use(express.urlencoded({ limit: "30mb", extended: true }));
 app.use(cors());
+
+// middleware routes
+app.use("/posts", postRoutes);
 
 // connect to db
 const CONNECTION_URL = process.env.CONNECTION_URL;
