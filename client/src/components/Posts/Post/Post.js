@@ -54,9 +54,13 @@ const Post = ({ post }) => {
 
       <CardActions className={classes.cardActions}>
         <Button size="small" color="primary" onClick={() => console.log("yes")}>
-          <ThumbUpAltIcon fontSize="small">
-            Like {post.likeCount}
-          </ThumbUpAltIcon>
+          <ThumbUpAltIcon fontSize="small" />
+          Like {post.likeCount}
+        </Button>
+
+        <Button size="small" color="primary" onClick={() => console.log("yes")}>
+          <DeleteIcon fontSize="small" />
+          Delete
         </Button>
       </CardActions>
     </Card>
