@@ -46,9 +46,19 @@ const Post = ({ post }) => {
         </Typography>
       </div>
 
-      <Typography className={classes.title} variant="h5" gutterBottom>
-        {post.message}
-      </Typography>
+      <CardContent>
+        <Typography className={classes.title} variant="h5" gutterBottom>
+          {post.message}
+        </Typography>
+      </CardContent>
+
+      <CardActions className={classes.cardActions}>
+        <Button size="small" color="primary" onClick={() => console.log("yes")}>
+          <ThumbUpAltIcon fontSize="small">
+            Like {post.likeCount}
+          </ThumbUpAltIcon>
+        </Button>
+      </CardActions>
     </Card>
   );
 };
