@@ -15,17 +15,14 @@ const Form = ({ currentId, setCurrentId }) => {
   });
 
   const post = useSelector((state) =>
-    currentId ? state.posts.find((p) => p._id === currentId) : null
+    currentId ? state.posts.find((message) => message._id === currentId) : null
   );
-
   const classes = useStyles();
 
   const dispatch = useDispatch();
 
   useEffect(() => {
-    if (post) {
-      setPostData(post);
-    }
+    if (post) setPostData(post);
   }, [post]);
 
   const handleSubmit = (e) => {
@@ -33,13 +30,23 @@ const Form = ({ currentId, setCurrentId }) => {
 
     if (currentId) {
       dispatch(updatePost(currentId, postData));
+      // console.log(postData)
     } else {
       dispatch(createPost(postData));
     }
+
+    clear();
   };
 
   const clear = () => {
-    console.log("clear");
+    setCurrentId(null);
+    setPostData({
+      creator: "",
+      title: "",
+      message: "",
+      tags: "",
+      selectedFile: "",
+    });
   };
 
   return (
@@ -50,7 +57,9 @@ const Form = ({ currentId, setCurrentId }) => {
         className={`${classes.root} ${classes.form}`}
         onSubmit={handleSubmit}
       >
-        <Typography variant="h6">Creating a memory</Typography>
+        <Typography variant="h6">
+          {currentId ? "Editing" : "Creating"} a memory
+        </Typography>
         <TextField
           name="creator"
           variant="outlined"
