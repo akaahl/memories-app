@@ -18,13 +18,6 @@ const Post = ({ post, setCurrentId }) => {
   const classes = useStyles();
   const dispatch = useDispatch();
 
-  console.log(
-    post.tags
-      .join("")
-      .split(", ")
-      .map((tag) => `#${tag}`)
-  );
-
   return (
     <Card className={classes.card}>
       <CardMedia
@@ -52,11 +45,7 @@ const Post = ({ post, setCurrentId }) => {
 
       <div className={classes.details}>
         <Typography variant="body2" color="textSecondary">
-          {post.tags
-            .join("")
-            .split(", ")
-            .map((tag) => `#${tag}`)
-            .join(" ")}
+          {post.tags.map((tag) => `#${tag} `)}
         </Typography>
       </div>
 
@@ -65,7 +54,7 @@ const Post = ({ post, setCurrentId }) => {
       </Typography>
 
       <CardContent>
-        <Typography variant="h5" gutterBottom>
+        <Typography variant="body2" color="textSecondary" component="p">
           {post.message}
         </Typography>
       </CardContent>
