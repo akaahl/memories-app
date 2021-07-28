@@ -15,6 +15,10 @@ app.use(cors());
 // middleware routes
 app.use("/posts", postRoutes);
 
+app.get("/", (req, res) => {
+  res.send("Greeting");
+});
+
 // connect to db
 const CONNECTION_URL = process.env.CONNECTION_URL;
 const PORT = process.env.PORT || 5000;
