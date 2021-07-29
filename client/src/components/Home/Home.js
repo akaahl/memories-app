@@ -18,7 +18,7 @@ const Home = () => {
       <Container>
         <Grid
           container
-          justifyContent="space-between"
+          justify="space-between"
           alignItems="stretch"
           spacing={3}
         >
