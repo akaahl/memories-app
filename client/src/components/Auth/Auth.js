@@ -1,3 +1,4 @@
+import { useState } from "react";
 import useStyles from "./styles";
 import {
   Avatar,
@@ -14,6 +15,7 @@ import Input from "./Input";
 const Auth = () => {
   const classes = useStyles();
   const isSignUp = false;
+  const [showPassword, setShowPassword] = useState(false);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -22,6 +24,9 @@ const Auth = () => {
   const handleChange = (e) => {
     console.log("handle change");
   };
+
+  const handleShowPassword = () =>
+    setShowPassword((prevShowPassword) => !prevShowPassword);
 
   return (
     <Container component="main" maxWidth="xs">
@@ -51,6 +56,19 @@ const Auth = () => {
                 />
               </>
             )}
+            <Input
+              name="email"
+              label="Email Address"
+              handleChange={handleChange}
+              type="email"
+            />
+            <Input
+              name="password"
+              label="Password"
+              handleChange={handleChange}
+              type={showPassword ? "text" : "password"}
+              handleShowPassword={handleShowPassword}
+            />
           </Grid>
         </form>
       </Paper>
