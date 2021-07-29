@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useDispatch } from "react-redux";
 import useStyles from "./styles";
 import {
   Avatar,
@@ -17,6 +18,7 @@ const Auth = () => {
   const classes = useStyles();
   const [isSignUp, setIsSignUp] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
+  const dispatch = useDispatch();
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -34,11 +36,19 @@ const Auth = () => {
     handleShowPassword();
   };
 
-  const googleSuccess = (res) => {
-    console.log(res);
+  const googleSuccess = async (res) => {
+    const result = res?.profileObj;
+    const token = res?.tokenId;
+
+    try {
+      dispatch({ type: "AUTH", data: { result, token } });
+    } catch (err) {
+      console.log(err);
+    }
   };
 
-  const googleFailure = () => {
+  const googleFailure = (err) => {
+    console.log(err);
     console.log("Google Sign In was unsuccessful. Try again later");
   };
 
