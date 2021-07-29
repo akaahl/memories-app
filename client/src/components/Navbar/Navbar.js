@@ -1,3 +1,4 @@
+import { useState, useEffect } from "react";
 import { AppBar, Typography, Toolbar, Button, Avatar } from "@material-ui/core";
 import useStyles from "./styles";
 import { Link } from "react-router-dom";
@@ -5,7 +6,15 @@ import memories from "../../assets/memories.png";
 
 const Navbar = () => {
   const classes = useStyles();
-  const user = null;
+  const [user, setUser] = useState(JSON.parse(localStorage.getItem("profile")));
+
+  useEffect(() => {
+    const token = user?.token;
+
+    // later for JWT...
+    setUser(JSON.parse(localStorage.getItem("profile")));
+  }, []);
+
   return (
     <AppBar className={classes.appBar} position="static" color="inherit">
       <div className={classes.brandContainer}>

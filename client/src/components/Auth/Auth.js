@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useDispatch } from "react-redux";
+import { useHistory } from "react-router-dom";
 import useStyles from "./styles";
 import {
   Avatar,
@@ -19,6 +20,7 @@ const Auth = () => {
   const [isSignUp, setIsSignUp] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
   const dispatch = useDispatch();
+  const history = useHistory();
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -42,6 +44,7 @@ const Auth = () => {
 
     try {
       dispatch({ type: "AUTH", data: { result, token } });
+      history.push("/");
     } catch (err) {
       console.log(err);
     }
@@ -134,7 +137,7 @@ const Auth = () => {
             cookiePolicy="single_host_origin"
           />
 
-          <Grid container justify="flex-end">
+          <Grid container justifyContent="flex-end">
             <Grid item>
               <Button onClick={switchMode}>
                 {isSignUp
