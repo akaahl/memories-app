@@ -3,6 +3,7 @@ import mongoose from "mongoose";
 import cors from "cors";
 import dotenv from "dotenv";
 import postRoutes from "./routes/posts.js";
+import userRoutes from "./routes/user.js";
 
 dotenv.config();
 
@@ -14,6 +15,7 @@ app.use(cors());
 
 // middleware routes
 app.use("/posts", postRoutes);
+app.use("/user", userRoutes);
 
 // connect to db
 const CONNECTION_URL = process.env.CONNECTION_URL;
