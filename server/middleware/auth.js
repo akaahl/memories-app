@@ -17,7 +17,11 @@ const auth = async (req, res, next) => {
       // sub is google's proprietary algorithm to differentiate different users
       req.userId = decodedData?.sub;
     }
+
+    next();
   } catch (err) {
     console.log(err);
   }
 };
+
+export default auth;
