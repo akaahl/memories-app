@@ -1,14 +1,16 @@
 import axios from "axios";
 
 const API = axios.create({
-  baseURL: "https://saving-memories-app.herokuapp.com/",
+  baseURL: "http://localhost:5000/",
 });
+
+// https://saving-memories-app.herokuapp.com/
 
 // to send token to backend, so the backend can verify user's login
 API.interceptors.request.use((req) => {
   if (localStorage.getItem("profile")) {
     req.headers.Authorization = `Bearer ${
-      JSON.parse(localStorage.setItem("profile")).token
+      JSON.parse(localStorage.getItem("profile")).token
     }`;
   }
 
