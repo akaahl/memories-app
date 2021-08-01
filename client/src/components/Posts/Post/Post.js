@@ -63,15 +63,18 @@ const Post = ({ post, setCurrentId }) => {
         </Typography>
       </div>
 
-      <div className={classes.overlay2}>
-        <Button
-          style={{ color: "white" }}
-          size="small"
-          onClick={() => setCurrentId(post._id)}
-        >
-          <MoreHorizIcon fontSize="medium" />
-        </Button>
-      </div>
+      {(user?.result?.googleId === post?.creator ||
+        user?.result?._id === post?.creator) && (
+        <div className={classes.overlay2}>
+          <Button
+            style={{ color: "white" }}
+            size="small"
+            onClick={() => setCurrentId(post._id)}
+          >
+            <MoreHorizIcon fontSize="medium" />
+          </Button>
+        </div>
+      )}
 
       <div className={classes.details}>
         <Typography variant="body2" color="textSecondary">
@@ -99,14 +102,17 @@ const Post = ({ post, setCurrentId }) => {
           <Likes />
         </Button>
 
-        <Button
-          size="small"
-          color="primary"
-          onClick={() => dispatch(deletePost(post._id))}
-        >
-          <DeleteIcon fontSize="small" />
-          Delete
-        </Button>
+        {(user?.result?.googleId === post?.creator ||
+          user?.result?._id === post?.creator) && (
+          <Button
+            size="small"
+            color="primary"
+            onClick={() => dispatch(deletePost(post._id))}
+          >
+            <DeleteIcon fontSize="small" />
+            Delete
+          </Button>
+        )}
       </CardActions>
     </Card>
   );
