@@ -14,13 +14,12 @@ const auth = async (req, res, next) => {
     } else {
       decodedData = jwt.decode(token);
 
-      // sub is google's proprietary algorithm to differentiate different users
       req.userId = decodedData?.sub;
     }
 
     next();
-  } catch (err) {
-    console.log(err);
+  } catch (error) {
+    console.log(error);
   }
 };
 

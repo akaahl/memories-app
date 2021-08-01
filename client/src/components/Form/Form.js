@@ -27,21 +27,6 @@ const Form = ({ currentId, setCurrentId }) => {
     if (post) setPostData(post);
   }, [post]);
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-
-    if (currentId === 0) {
-      dispatch(createPost({ ...postData, name: user?.result?.name }));
-      clear();
-      // console.log(postData)
-    } else {
-      dispatch(updatePost({ ...postData, name: user?.result?.name }));
-      clear();
-    }
-
-    clear();
-  };
-
   const clear = () => {
     setCurrentId(0);
     setPostData({
@@ -50,6 +35,23 @@ const Form = ({ currentId, setCurrentId }) => {
       tags: "",
       selectedFile: "",
     });
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    if (currentId === 0) {
+      dispatch(createPost({ ...postData, name: user?.result?.name }));
+      clear();
+    } else {
+      dispatch(
+        updatePost(currentId, { ...postData, name: user?.result?.name })
+      );
+      clear();
+    }
+
+    // console.log(postData);
+    clear();
   };
 
   if (!user?.result?.name) {
