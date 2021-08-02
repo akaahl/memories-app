@@ -1,11 +1,11 @@
 import {
-  CREATE,
-  DELETE,
-  UPDATE,
   FETCH_ALL,
-  LIKE_POST,
+  CREATE,
+  UPDATE,
+  DELETE,
+  LIKE,
 } from "../constants/actionTypes";
-import * as api from "../api";
+import * as api from "../api/index.js";
 
 export const getPosts = () => async (dispatch) => {
   try {
@@ -37,22 +37,24 @@ export const updatePost = (id, post) => async (dispatch) => {
   }
 };
 
-export const deletePost = (id) => async (dispatch) => {
-  try {
-    await api.deletePost(id);
+export const likePost = (id) => async (dispatch) => {
+  const user = JSON.parse(localStorage.getItem("profile"));
 
-    dispatch({ type: DELETE, payload: id });
-  } catch (err) {
-    console.log(err);
+  try {
+    const { data } = await api.likePost(id, user?.token);
+
+    dispatch({ type: LIKE, payload: data });
+  } catch (error) {
+    console.log(error);
   }
 };
 
-export const likePost = (id) => async (dispatch) => {
+export const deletePost = (id) => async (dispatch) => {
   try {
-    const { data } = await api.likePost(id);
+    await await api.deletePost(id);
 
-    dispatch({ type: LIKE_POST, payload: data });
-  } catch (err) {
-    console.log(err);
+    dispatch({ type: DELETE, payload: id });
+  } catch (error) {
+    console.log(error);
   }
 };
