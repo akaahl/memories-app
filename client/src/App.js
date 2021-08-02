@@ -15,7 +15,7 @@ const App = () => {
 
   return (
     <Router>
-      <Container maxwidth="lg">
+      <Container maxwidth="xl">
         <Navbar />
 
         <Switch>

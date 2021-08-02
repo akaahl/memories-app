@@ -1,6 +1,7 @@
 import { Pagination, PaginationItem } from "@material-ui/lab";
-import useStyles from "./styles";
 import { Link } from "react-router-dom";
+
+import useStyles from "./styles";
 
 const Paginate = () => {
   const classes = useStyles();
