@@ -12,10 +12,12 @@ import { useDispatch } from "react-redux";
 import { useHistory, useLocation } from "react-router-dom";
 import ChipInput from "material-ui-chip-input";
 
-import { getPosts } from "../../actions/posts";
+import { getPosts, getPostsBySearch } from "../../actions/posts";
 import Pagination from "../Pagination";
 import Posts from "../Posts/Posts";
 import Form from "../Form/Form";
+
+import useStyles from "./styles";
 
 function useQuery() {
   return new URLSearchParams(useLocation().search);
@@ -28,6 +30,30 @@ const Home = () => {
   const history = useHistory();
   const page = query.get("page") || 1;
   const searchQuery = query.get("searchQuery");
+  const classes = useStyles();
+  const [search, setSearch] = useState("");
+  const [tags, setTags] = useState([]);
+
+  const handleKeyPress = (e) => {
+    if (e.keyCode === 13) {
+      // search post
+      searchPost();
+    }
+  };
+
+  const handleAdd = (tag) => setTags([...tags, tag]);
+
+  const handleDelete = (chipToDelete) =>
+    setTags(tags.filter((tag) => tag !== chipToDelete));
+
+  const searchPost = () => {
+    if (search.trim() || tags) {
+      // dispatch reducers => search_posts
+      dispatch(getPostsBySearch({ search, tags: tags.join(",") }));
+    } else {
+      history.push("/");
+    }
+  };
 
   useEffect(() => {
     dispatch(getPosts());
@@ -35,17 +61,49 @@ const Home = () => {
 
   return (
     <Grow in>
-      <Container>
+      <Container maxWidth="xl">
         <Grid
           container
           justify="space-between"
           alignItems="stretch"
           spacing={3}
+          className={classes.gridContainer}
         >
-          <Grid item xs={12} sm={7}>
+          <Grid item xs={12} sm={6} md={9}>
             <Posts setCurrentId={setCurrentId} />
           </Grid>
-          <Grid item xs={12} sm={4}>
+          <Grid item xs={12} sm={6} md={3}>
+            <AppBar
+              className={classes.appBarSearch}
+              position="static"
+              color="inherit"
+            >
+              <TextField
+                name="search"
+                variant="outlined"
+                label="Search Memories"
+                fullWidth
+                onKeyPress={handleKeyPress}
+                value={search}
+                onChange={(e) => setSearch(e.target.value)}
+              />
+              <ChipInput
+                style={{ margin: "10px 0" }}
+                value={tags}
+                onAdd={(chip) => handleAdd(chip)}
+                onDelete={(chip) => handleDelete(chip)}
+                label="Search Tags"
+                variant="outlined"
+              />
+              <Button
+                onClick={searchPost}
+                className={classes.searchButton}
+                variant="contained"
+                color="primary"
+              >
+                Search
+              </Button>
+            </AppBar>
             <Form currentId={currentId} setCurrentId={setCurrentId} />
 
             <Paper elevation={6}>
