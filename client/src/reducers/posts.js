@@ -1,6 +1,8 @@
 import {
   FETCH_ALL,
   FETCH_BY_SEARCH,
+  START_LOADING,
+  END_LOADING,
   CREATE,
   UPDATE,
   DELETE,
@@ -24,7 +26,7 @@ export default (state = [], action) => {
         post._id === action.payload._id ? action.payload : post
       );
     case CREATE:
-      return [...state, action.payload];
+      return { ...state, posts: [...state.posts, action.payload] };
     case UPDATE:
       return state.map((post) =>
         post._id === action.payload._id ? action.payload : post

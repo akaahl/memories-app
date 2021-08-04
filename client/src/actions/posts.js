@@ -1,6 +1,8 @@
 import {
   FETCH_ALL,
   FETCH_BY_SEARCH,
+  START_LOADING,
+  END_LOADING,
   CREATE,
   UPDATE,
   DELETE,
@@ -10,8 +12,8 @@ import * as api from "../api/index.js";
 
 export const getPosts = (page) => async (dispatch) => {
   try {
+    dispatch({ type: START_LOADING });
     const { data } = await api.fetchPosts(page);
-    console.log(data);
 
     dispatch({ type: FETCH_ALL, payload: data });
   } catch (error) {
@@ -34,6 +36,8 @@ export const getPostsBySearch = (searchQuery) => async (dispatch) => {
 export const createPost = (post) => async (dispatch) => {
   try {
     const { data } = await api.createPost(post);
+
+    console.log(data);
 
     dispatch({ type: CREATE, payload: data });
   } catch (error) {
