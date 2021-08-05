@@ -13,9 +13,9 @@ import {
 // eslint-disable-next-line import/no-anonymous-default-export
 export default (state = { isLoading: true, posts: [] }, action) => {
   switch (action.type) {
-    case "START_LOADING":
+    case START_LOADING:
       return { ...state, isLoading: true };
-    case "END_LOADING":
+    case END_LOADING:
       return { ...state, isLoading: false };
     case FETCH_ALL:
       return {
