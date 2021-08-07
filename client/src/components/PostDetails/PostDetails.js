@@ -121,7 +121,7 @@ const PostDetails = () => {
                     Likes: {likes.length}
                   </Typography>
 
-                  <img src={selectedFile} width="200px" alt={post.title} />
+                  <img src={selectedFile} width="100px" alt={post.title} />
                 </div>
               )
             )}
