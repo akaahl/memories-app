@@ -23,14 +23,14 @@ const PostDetails = () => {
     dispatch(getPost(id));
   }, [id]);
 
-  // useEffect(() => {
-  //   if (post) {
-  //     dispatch(
-  //       getPostsBySearch({ search: "none", tags: post?.tags.join(",") })
-  //     );
-  //     console.log(post.tags);
-  //   }
-  // }, [post]);
+  useEffect(() => {
+    if (post) {
+      dispatch(
+        getPostsBySearch({ search: "none", tags: post?.tags.join(",") })
+      );
+      console.log(post.tags);
+    }
+  }, [post]);
 
   if (!post) return null;
 
@@ -90,7 +90,7 @@ const PostDetails = () => {
         </div>
       </div>
 
-      {recommendedPosts.length && (
+      {recommendedPosts.length > 0 && (
         <div className={classes.section}>
           <Typography gutterBottom variant="h5">
             You might also like:
