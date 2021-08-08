@@ -8,9 +8,11 @@ const CommentSection = ({ post }) => {
   const classes = useStyles();
   const [comments, setComments] = useState([1, 2, 3, 4, 5]);
   const [comment, setComment] = useState("");
+  const user = JSON.parse(localStorage.getItem("user"));
 
   const handleClick = (e) => {
-    console.log("clicked");
+    const finalComment = `${user.result.name}: ${comment}`;
+    dispatch(commentPost());
   };
 
   return (
@@ -44,8 +46,11 @@ const CommentSection = ({ post }) => {
             fullWidth
             disabled={!comment}
             variant="contained"
+            color="primary"
             onClick={handleClick}
-          ></Button>
+          >
+            Comment
+          </Button>
         </div>
       </div>
     </div>

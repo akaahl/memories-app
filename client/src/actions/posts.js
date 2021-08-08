@@ -101,3 +101,10 @@ export const deletePost = (id) => async (dispatch) => {
     console.log(error);
   }
 };
+
+export const commentPost = (value, id) => async (dispatch) => {
+  try {
+  } catch (err) {
+    console.log(err);
+  }
+};
