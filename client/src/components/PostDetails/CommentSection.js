@@ -12,9 +12,12 @@ const CommentSection = ({ post }) => {
   const [comment, setComment] = useState("");
   const user = JSON.parse(localStorage.getItem("profile"));
 
-  const handleClick = (e) => {
+  const handleClick = async () => {
     const finalComment = `${user.result.name}: ${comment}`;
-    dispatch(commentPost(finalComment, post._id));
+    const newComments = await dispatch(commentPost(finalComment, post._id));
+
+    setComments(newComments);
+    setComment("");
   };
 
   return (
