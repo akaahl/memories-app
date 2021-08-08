@@ -8,6 +8,7 @@ import {
   UPDATE,
   DELETE,
   LIKE,
+  COMMENT,
 } from "../constants/actionTypes";
 
 // eslint-disable-next-line import/no-anonymous-default-export
@@ -48,6 +49,19 @@ export default (state = { isLoading: true, posts: [] }, action) => {
       return {
         ...state,
         posts: state.posts.filter((post) => post._id !== action.payload),
+      };
+    case COMMENT:
+      return {
+        ...state,
+        posts: state.posts.map((post) => {
+          // change the post the just received a comment
+          if (post._id === action.payload._id) {
+            return action.payload;
+          }
+
+          // return all the other posts normally
+          return post;
+        }),
       };
     default:
       return state;

@@ -29,7 +29,6 @@ const PostDetails = () => {
       dispatch(
         getPostsBySearch({ search: "none", tags: post?.tags.join(",") })
       );
-      console.log(post.tags);
     }
   }, [post]);
 
